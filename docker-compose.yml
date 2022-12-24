@@ -1,0 +1,23 @@
+version: "3.7"
+
+services:
+  mongo:
+    container_name: mongo
+    image: mongo:4.2
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_DATABASE=auth
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+    volumes: 
+      - ./data:/data/db3
+
+  frontend:
+    container_name: frontend
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    command: python3 run.py
+    ports:
+      - '8080:8080'
+    depends_on:
+      - mongo

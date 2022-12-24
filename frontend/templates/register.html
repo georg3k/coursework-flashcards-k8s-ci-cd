@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-5 mx-md-auto pt-5">
+            <h1>Регистрация</h1>
+            <form method="POST" action="/register">
+                <div class="form-group">
+                    <label for="username">Имя пользователя</label>
+                    <input type="text" class="form-control" name="username" placeholder="Имя пользователя" required>
+                </div>
+                <div class="form-group">
+                    <label for="pass">Пароль</label>
+                    <input type="password" class="form-control" id="pass" name="pass" placeholder="Пароль" required>
+                    <small class="text-muted form-text my-3">Пароль должен быть от 8 символов в длину и содержать цифры и знаки препинания.</small>
+                </div>
+                <div class="form-group">
+                    <label for="confirmation">Подтвердите пароль</label>
+                    <input type="password" class="form-control" id="confirmation" name="confirmation" placeholder="Пароль" required>
+                </div></br>
+                <small class="text-muted form-text my-3">Продолжая регистрацию, вы подтверждаете согласие на хранение введенной информации в базе данных. Она не видна другим пользователям и используется исключительно в необходимых для работы системы целях.</small>
+                <div class="form-group mt-3">
+                    <input id="submit-button" type="submit" value="Зарегистрироваться" class="btn btn-primary btn-block">
+                </div>
+                {% if error == "1" %}
+                <p class="text-danger">Имя пользователя уже используется. Пожалуйста, <a href="/login" title="login">войдите</a> или свяжитесь с администратором для восстановления доступа.</p>
+                {% elif error == "2" %}
+                <p class="text-danger">Произошла ошибка. Не удалось зарегистрироваться.<br />Свяжитесь с администратором.</p>
+                {% elif error == "3" %}
+                <p class="text-danger">Пароль не соответствует требуемой длине</p>
+                {% elif error == "4" %}
+                <p class="text-danger">Пароль не содержит цифр</p>
+                {% elif error == "5" %}
+                <p class="text-danger">Пароль не содержит знаков препинания</p>
+                {% elif error == "6" %}
+                <p class="text-danger">Пароли отличаются</p>
+                {% endif %}
+            </form>
+
+            <div class="mt-3">
+                <p class="mt-3">Уже есть учетная запись? <a href="/login">Войти</a></p>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

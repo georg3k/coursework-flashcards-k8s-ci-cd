@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mx-md-auto pt-5">
+            <h1 class="text-primary" id="study_title"></h1>
+            <p id="study_desc"></p></br></br>
+            <div class="row row-cols-1 row-cols-md-3 mb-3 text-center justify-content-center d-flex">
+                <div id='study_card' class="col-md-6" width="300">
+                    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <div id="title_front"><strong class="d-inline-block mb-2 text-success">Вопрос</strong></div>
+                        <div id="title_back" style="visibility: hidden"><strong class="d-inline-block mb-2 text-danger">Ответ</strong></div>
+                        <h1 id="card_text" class="mb-0">А</h1></br></br>
+                        <div id="last" class="mb-1 text-muted">Последний показ: </div></br></br>
+                        <div class="progress">
+                            <div id="pbar" class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <button id="show_btn" type="button" class="w-100 btn btn-lg btn-primary">Показать ответ</button>
+                    <button id="yes_btn" type="button" class="w-100 btn btn-lg btn-success" style="visibility: hidden">Помню</button>
+                    <button id="no_btn" type="button" class="w-100 btn btn-lg btn-danger" style="visibility: hidden">Не помню</button>
+                    </div>
+              </div>
+            </div>
+            <div class="row row-cols-1 row-cols-md-3 mb-3 text-center justify-content-center d-flex" style="visibility: hidden">
+                <div id='fin_card'  class="col-md-6" width="300">
+                    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <h2 id="card_text" class="mb-0">Занятие окончено</h2></br></br>
+                        <h2 id="card_text" class="mb-0"></h2></br></br>
+                        <div id="last" class="mb-1 text-muted">Приходите завтра, для повторного занятия обновите страницу</div></br></br>
+                    </div>
+                    </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

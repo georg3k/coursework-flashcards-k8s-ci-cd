@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mx-md-auto pt-5">
+            <h1 class="text-primary">Добро пожаловать!</h1>
+            <h2>Система языкового обучения</h2>
+            <p class="text-muted">Овчинникова Наталья, Георгий Крючков (ИУ6-31М)</p>
+            <div class="my-3">
+                {% if current_user.is_authenticated %}
+                <p class="w-100 text-center p-2 my-3 border border-success text-success rounded">Вы вошли как {{ current_user.display_name() }}</p>
+                <table class="table align-middle">
+                    <tbody>
+                        <tr>
+                            <td>Имя</td>
+                            <td>{{ ((current_user.title + " ") if current_user.title else "") }}
+                                {% if current_user.verified %}
+                                <span class="text-primary mx-3">
+                                    <a class="edit-name-button" href="#" title="Edit name button" data-toggle="collapse" data-target="#edit-name">Edit</a>
+                                </span>
+                                {% endif %}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Имя пользователя</td>
+                            <td>{{ current_user.username }}</td>
+                        </tr>
+                        <tr>
+                            <td>ID</td>
+                            <td>{{ current_user.id }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                {% else %}
+                <a class="btn btn-primary my-3 w-100" href="/login">Вход</a>
+                <p>Нет учетной записи? <a href="/register">Регистрация</a>.</p>
+                <hr class="my-3" />
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

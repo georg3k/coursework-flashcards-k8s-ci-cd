@@ -9,7 +9,7 @@ services:
       - MONGO_INITDB_DATABASE=auth
       - MONGO_INITDB_ROOT_PASSWORD=pass
     volumes: 
-      - ./data:/data/db3
+      - ./data:/data/db
 
   frontend:
     container_name: frontend
@@ -17,7 +17,17 @@ services:
       context: frontend
       dockerfile: Dockerfile
     command: python3 run.py
-    ports:
+      - '8081:8080'
+    depends_on:
+      - mongo
+
+  backend:
+    container_name: backend
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    command: python3 run.py
       - '8080:8080'
     depends_on:
       - mongo
+

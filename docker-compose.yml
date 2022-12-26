@@ -26,7 +26,7 @@ services:
     volumes: 
       - ./data:/data/db
     ports:
-      - '8081:8081'
+      - '2224:8081'
 
   frontend:
     container_name: frontend
@@ -45,4 +45,16 @@ services:
     command: python3 run.py
     depends_on:
       - mongo
+
+  nginx-proxy:
+    container_name: nginx-proxy
+    image: nginx:latest
+    ports:
+      - '8080:80'
+    volumes: 
+      - ./nginx/proxy.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - frontend
+      - backend
+      - mongo-express
 

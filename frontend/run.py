@@ -67,7 +67,6 @@ login_manager.login_view = "login"
 def index():
     return render_template("index.html")
 
-
 # Login
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -97,7 +96,6 @@ def login():
 
     # Redirect to login page on error
     return redirect(url_for("login", error=1, _external=True))
-
 
 # Register
 @app.route("/register", methods=["POST", "GET"])
@@ -148,13 +146,24 @@ def register():
     # Return template for registration page if GET request
     return render_template("register.html", error=request.args.get("error"))
 
-
 # Logout
 @app.route("/logout", methods=["GET"])
 @login_required
 def logout():
     logout_user()
     return redirect(url_for("index", _external=True))
+    
+# Decks
+@app.route("/decks", methods=["GET"])
+@login_required
+def decks():
+    return render_template("decks.html")
+
+# Main learning page
+@app.route("/decks/<id>/study", methods=["GET"])
+@login_required
+def decks_id(id):
+    return render_template("deck.html")
 
 # Load user from user ID
 @login_manager.user_loader

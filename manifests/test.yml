@@ -1,0 +1,166 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: testing
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-deployment
+  namespace: testing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: mongo
+  template:
+    metadata:
+      labels:
+        name: mongo
+    spec:
+      containers:
+      - name: mongo
+        image: mongo:4.2
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          value: admin
+        - name: MONGO_INITDB_DATABASE
+          value: auth
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          value: pass
+        ports:
+        - name: mango
+          containerPort: 27017
+      #  volumeMounts:
+      #  - mountPath: /data/db
+      #    name: data
+      #volumes:
+      #- name: data
+      #  hostPath:
+      #    path: /vagrant/data_testing
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  namespace: testing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: frontend
+  template:
+    metadata:
+      labels:
+        name: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: registry.gitlab.com/georg3k/coursework-flashcards-k8s-ci-cd/frontend:latest
+        ports:
+        - name: frontend
+          containerPort: 8080
+      imagePullSecrets:
+        - name: myregistrykey
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  namespace: testing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: backend
+  template:
+    metadata:
+      labels:
+        name: backend
+    spec:
+      containers:
+      - name: backend
+        image: registry.gitlab.com/georg3k/coursework-flashcards-k8s-ci-cd/backend:latest
+        ports:
+        - name: backend
+          containerPort: 8080
+      imagePullSecrets:
+        - name: myregistrykey
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: newman
+  namespace: testing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: newman
+  template:
+    metadata:
+      labels:
+        name: newman
+    spec:
+      containers:
+      - name: newman
+        image: postman/newman
+        args: ['run', 'https://gitlab.com/georg3k/coursework-flashcards-k8s-ci-cd/-/raw/ci/tests/integration.json']
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-service
+  namespace: testing
+  labels:
+    name: mango
+spec:
+  ports:
+    - name: mango
+      port: 27017
+  selector:
+    name: mango
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+  namespace: testing
+  labels:
+    name: frontend
+spec:
+  ports:
+    - name: frontend
+      port: 80
+      targetPort: 8080
+  selector:
+    name: frontend
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+  namespace: testing
+  labels:
+    name: backend
+spec:
+  ports:
+    - name: backend
+      port: 80
+      targetPort: 8080
+  selector:
+    name: backend

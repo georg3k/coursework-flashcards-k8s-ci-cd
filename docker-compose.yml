@@ -58,3 +58,14 @@ services:
       - backend
       - mongo-express
 
+  newman:
+    container_name: newman
+    image: postman/newman
+    volumes:
+      - ./tests:/etc/newman
+    command: run /etc/newman/integration.json
+    profiles:
+      - testing
+    depends_on:
+      - nginx-proxy
+

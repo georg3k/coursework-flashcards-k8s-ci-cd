@@ -1,0 +1,52 @@
+stages:
+    - build
+    - test
+    - deploy
+
+build:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context ./frontend --dockerfile ./backend/Dockerfile --destination $CI_REGISTRY_IMAGE/frontend:latest
+    - /kaniko/executor --context ./backend --dockerfile ./backend/Dockerfile --destination $CI_REGISTRY_IMAGE/backend:latest
+
+test:
+  stage: test
+  image:
+    name: bitnami/kubectl:latest
+    entrypoint: ['']
+  script:
+    - kubectl apply -f manifests/test.yml
+    #- kubectl logs deployments/newman -n testing -f  
+
+deploy-50%:
+  stage: deploy
+  image:
+    name: bitnami/kubectl:latest
+    entrypoint: ['']
+  script:
+    - kubectl apply -f manifests/deploy.yml
+    - kubectl scale deployments/frontend-deployment --replicas=1 -n deployment
+    - kubectl scale deployments/backend-deployment --replicas=1 -n deployment
+  rules:
+    - when: manual
+
+
+deploy-100%:
+  stage: deploy
+  image:
+    name: bitnami/kubectl:latest
+    entrypoint: ['']
+  script:
+    - kubectl scale deployments/frontend-deployment --replicas=2 -n deployment
+    - kubectl scale deployments/backend-deployment --replicas=2 -n deployment
+  rules:
+    - when: manual
+  needs:
+    - 'deploy-50%'
+
+
+

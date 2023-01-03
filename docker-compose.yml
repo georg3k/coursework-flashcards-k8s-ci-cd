@@ -26,7 +26,7 @@ services:
     volumes: 
       - ./data:/data/db
     ports:
-      - '2224:8081'
+      - '8081:8081'
 
   frontend:
     container_name: frontend

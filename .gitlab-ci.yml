@@ -20,33 +20,14 @@ test:
     entrypoint: ['']
   script:
     - kubectl apply -f manifests/test.yml
-    #- kubectl logs deployments/newman -n testing -f  
+    - kubectl logs deployments/newman -n testing -f  
 
-deploy-50%:
+deploy:
   stage: deploy
   image:
     name: bitnami/kubectl:latest
     entrypoint: ['']
   script:
     - kubectl apply -f manifests/deploy.yml
-    - kubectl scale deployments/frontend-deployment --replicas=1 -n deployment
-    - kubectl scale deployments/backend-deployment --replicas=1 -n deployment
   rules:
     - when: manual
-
-
-deploy-100%:
-  stage: deploy
-  image:
-    name: bitnami/kubectl:latest
-    entrypoint: ['']
-  script:
-    - kubectl scale deployments/frontend-deployment --replicas=2 -n deployment
-    - kubectl scale deployments/backend-deployment --replicas=2 -n deployment
-  rules:
-    - when: manual
-  needs:
-    - 'deploy-50%'
-
-
-

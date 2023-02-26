@@ -20,8 +20,15 @@ from deck import Deck
 from session import Session
 from card import Card
 
+# Prometheus
+from prometheus_flask_exporter import PrometheusMetrics
+
 # Create app
 app = Flask(__name__)
+metrics = PrometheusMetrics(app)
+
+# static information as metric
+metrics.info('app_info', 'Flashcards App API Backend', version='1.0.0')
 
 # Configuration
 config = configparser.ConfigParser()
@@ -43,7 +50,6 @@ login_manager.login_view = "login"
 # API
 
 # Initialize or get current user session for id deck
-@app.route("/api/sessions/<id>", methods=["GET"])
 @login_required
 def sessions_id(id):
     session = mongo.flashcards.sessions.find_one({"user": current_user.id, "deck": id})

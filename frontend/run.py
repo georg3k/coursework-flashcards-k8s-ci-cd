@@ -24,9 +24,15 @@ import configparser
 # Local imports
 from user import User
 
+# Prometheus
+from prometheus_flask_exporter import PrometheusMetrics
 
 # Create app
 app = Flask(__name__)
+metrics = PrometheusMetrics(app)
+
+# static information as metric
+metrics.info('app_info', 'Flashcards App Frontend', version='1.0.0')
 
 # Configuration
 config = configparser.ConfigParser()
@@ -185,3 +191,4 @@ def is_safe_url(target):
 
 # Start server
 app.run(host="0.0.0.0", port=8080, debug=True)
+

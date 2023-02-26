@@ -1,0 +1,664 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "Example dashboard for monitoring Flask webapps using prometheus_flask_exporter",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 5,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "nLkN5HbVk"
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "hiddenSeries": false,
+      "id": 2,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "9.3.6",
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "nLkN5HbVk"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "rate(flask_http_request_duration_seconds_count{status=\"200\",instance=\"frontend:8080\", path!~\"/decks/[0-9]+/study\"}[60s])",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "{{ path }}",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "nLkN5HbVk"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(flask_http_request_duration_seconds_count{status=\"200\", instance=\"backend:8080\", path=~\"/api/sessions/[0-9]*\"}[60s]))",
+          "hide": false,
+          "legendFormat": "/api/sessions/...",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "nLkN5HbVk"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(flask_http_request_duration_seconds_count{status=\"200\", instance=\"backend:8080\", path=~\"/api/sessions/[0-9]*/[0-9]*/yes\"}[60s]))",
+          "hide": false,
+          "legendFormat": "/api/sessions/.../yes",
+          "range": true,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "nLkN5HbVk"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(flask_http_request_duration_seconds_count{status=\"200\", instance=\"backend:8080\", path=~\"/api/sessions/[0-9]*/[0-9]*/no\"}[30s]))",
+          "hide": false,
+          "legendFormat": "/api/sessions/.../no",
+          "range": true,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "nLkN5HbVk"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(flask_http_request_duration_seconds_count{status=\"200\", instance=\"backend:8080\", path=~\"/api/decks/[0-9]+\"}[60s]))",
+          "hide": false,
+          "legendFormat": "/api/decks/...",
+          "range": true,
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "nLkN5HbVk"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(flask_http_request_duration_seconds_count{status=\"200\", instance=\"backend:8080\", path=~\"/api/scores/[0-9]+\"}[60s]))",
+          "hide": false,
+          "legendFormat": "/api/scores/...",
+          "range": true,
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "nLkN5HbVk"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(flask_http_request_duration_seconds_count{status=\"200\", instance=\"backend:8080\", path=~\"/api/cards/[0-9]+\"}[60s]))",
+          "hide": false,
+          "legendFormat": "/api/cards/...",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "nLkN5HbVk"
+          },
+          "editorMode": "code",
+          "expr": "rate(flask_http_request_duration_seconds_count{status=\"200\", instance=\"backend:8080\", path=\"/api/decks\"}[60s])",
+          "hide": false,
+          "legendFormat": "{{ path }}",
+          "range": true,
+          "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "nLkN5HbVk"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(rate(flask_http_request_duration_seconds_count{status=\"200\",instance=\"frontend:8080\", path=~\"/decks/[0-9]+/study\"}[60s]))",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "/decks/.../study",
+          "range": true,
+          "refId": "I"
+        }
+      ],
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "Requests rate",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transformations": [],
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "logBase": 1,
+          "show": true
+        },
+        {
+          "format": "short",
+          "logBase": 1,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "nLkN5HbVk"
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "hiddenSeries": false,
+      "id": 17,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "9.3.6",
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "nLkN5HbVk"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "rate(flask_http_request_duration_seconds_sum{status=\"200\",instance=\"frontend:8080\", path!~\"/decks/[0-9]+/study\"}[120s])\n/\nrate(flask_http_request_duration_seconds_count{status=\"200\",instance=\"frontend:8080\", path!~\"/decks/[0-9]+/study\"}[120s])",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "{{ path }}",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "nLkN5HbVk"
+          },
+          "editorMode": "builder",
+          "expr": "sum(rate(flask_http_request_duration_seconds_sum{status=\"200\", instance=\"backend:8080\", path=~\"/api/sessions/[0-9]*\"}[5m])) / sum(rate(flask_http_request_duration_seconds_count{status=\"200\", instance=\"backend:8080\", path=~\"/api/sessions/[0-9]*\"}[5m]))",
+          "hide": false,
+          "legendFormat": "/api/sessions/...",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "nLkN5HbVk"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(flask_http_request_duration_seconds_sum{status=\"200\", instance=\"backend:8080\", path=~\"/api/sessions/[0-9]*/[0-9]*/yes\"}[120s]))\n/\nsum(rate(flask_http_request_duration_seconds_count{status=\"200\", instance=\"backend:8080\", path=~\"/api/sessions/[0-9]*/[0-9]*/yes\"}[120s]))",
+          "hide": false,
+          "legendFormat": "/api/sessions/.../yes",
+          "range": true,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "nLkN5HbVk"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(flask_http_request_duration_seconds_sum{status=\"200\", instance=\"backend:8080\", path=~\"/api/sessions/[0-9]*/[0-9]*/no\"}[120s]))\n/\nsum(rate(flask_http_request_duration_seconds_count{status=\"200\", instance=\"backend:8080\", path=~\"/api/sessions/[0-9]*/[0-9]*/no\"}[120s]))",
+          "hide": false,
+          "legendFormat": "/api/sessions/.../no",
+          "range": true,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "nLkN5HbVk"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(flask_http_request_duration_seconds_sum{status=\"200\", instance=\"backend:8080\", path=~\"/api/decks/[0-9]+\"}[120s]))\n/\nsum(rate(flask_http_request_duration_seconds_count{status=\"200\", instance=\"backend:8080\", path=~\"/api/decks/[0-9]+\"}[120s]))",
+          "hide": false,
+          "legendFormat": "/api/decks/...",
+          "range": true,
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "nLkN5HbVk"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(flask_http_request_duration_seconds_sum{status=\"200\", instance=\"backend:8080\", path=~\"/api/scores/[0-9]+\"}[120s]))\n/\nsum(rate(flask_http_request_duration_seconds_count{status=\"200\", instance=\"backend:8080\", path=~\"/api/scores/[0-9]+\"}[120s]))",
+          "hide": false,
+          "legendFormat": "/api/scores/...",
+          "range": true,
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "nLkN5HbVk"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(flask_http_request_duration_seconds_sum{status=\"200\", instance=\"backend:8080\", path=~\"/api/cards/[0-9]+\"}[60s]))\n/\nsum(rate(flask_http_request_duration_seconds_count{status=\"200\", instance=\"backend:8080\", path=~\"/api/cards/[0-9]+\"}[60s]))",
+          "hide": false,
+          "legendFormat": "/api/cards/...",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "nLkN5HbVk"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(flask_http_request_duration_seconds_sum{status=\"200\", instance=\"backend:8080\", path=\"/api/decks\"}[60s]))\n/\nsum(rate(flask_http_request_duration_seconds_count{status=\"200\", instance=\"backend:8080\", path=\"/api/decks\"}[60s]))",
+          "hide": false,
+          "legendFormat": "{{ path }}",
+          "range": true,
+          "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "nLkN5HbVk"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(rate(flask_http_request_duration_seconds_sum{status=\"200\",instance=\"frontend:8080\", path=~\"/decks/[0-9]+/study\"}[60s]))\n/\nsum(rate(flask_http_request_duration_seconds_count{status=\"200\",instance=\"frontend:8080\", path=~\"/decks/[0-9]+/study\"}[60s]))",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "/decks/.../study",
+          "range": true,
+          "refId": "I"
+        }
+      ],
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "Response time",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transformations": [],
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "logBase": 1,
+          "show": true
+        },
+        {
+          "format": "short",
+          "logBase": 1,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "nLkN5HbVk"
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 0,
+        "y": 11
+      },
+      "hiddenSeries": false,
+      "id": 18,
+      "legend": {
+        "avg": true,
+        "current": false,
+        "max": true,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "9.3.6",
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "HTTP 500",
+          "color": "#bf1b00"
+        }
+      ],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "nLkN5HbVk"
+          },
+          "editorMode": "code",
+          "expr": "increase(flask_http_request_total[1m])",
+          "format": "time_series",
+          "hide": true,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "HTTP {{ status }}",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "nLkN5HbVk"
+          },
+          "editorMode": "code",
+          "expr": "increase(count by (ans) (\n  label_replace(\n    flask_http_request_duration_seconds_count{instance=\"backend:8080\",path=~\"/api/sessions/[0-9]*/[0-9]*/(yes|no)\",status=\"200\"},\n    \"ans\",\n    \"$1\",\n    \"path\",\n    \"/api/sessions/[0-9]*/[0-9]*/(.+)\"\n  )\n)[5m:1m])",
+          "hide": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "Yes / No answers distribution",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "logBase": 1,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "logBase": 1,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "nLkN5HbVk"
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 12,
+        "y": 11
+      },
+      "hiddenSeries": false,
+      "id": 13,
+      "legend": {
+        "avg": true,
+        "current": false,
+        "max": true,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "9.3.6",
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "HTTP 500",
+          "color": "#bf1b00"
+        }
+      ],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "nLkN5HbVk"
+          },
+          "expr": "increase(flask_http_request_total[1m])",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "HTTP {{ status }}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "Total requests per minute",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "logBase": 1,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "logBase": 1,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 37,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "2023-02-26T16:07:45.168Z",
+    "to": "2023-02-26T16:10:02.250Z"
+  },
+  "timepicker": {
+    "refresh_intervals": [],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "",
+  "title": "Prometheus Flask exporter dashboard",
+  "uid": "_eX4mpl3",
+  "version": 2,
+  "weekStart": ""
+}

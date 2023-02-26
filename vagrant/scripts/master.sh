@@ -38,7 +38,7 @@ kubeadm token create --print-join-command > $config_path/join.sh
 
 # Install Calico Network Plugin
 
-curl https://docs.projectcalico.org/manifests/calico.yaml -O
+curl -L https://docs.projectcalico.org/v3.25/manifests/calico.yaml -O
 
 kubectl apply -f calico.yaml
 
